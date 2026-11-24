@@ -64,6 +64,11 @@ def main() -> None:
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as f:
         f.write(WORD)
+    # Validate: re-read what was just written and assert it decodes to
+    # exactly the single word "Ghost" — 5 chars, no spaces, no trailing newline.
+    with open(os.path.join(out_dir, "entry.txt"), "r", encoding="utf-8") as f:
+        written = f.read()
+    assert written == WORD and len(written) == 5 and " " not in written
     print(f"Verified: {len(WORD)} characters, 1 word.")
 
 
